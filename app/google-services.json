@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "679252629498",
+    "firebase_url": "https://tpultrasonido.firebaseio.com",
+    "project_id": "tpultrasonido",
+    "storage_bucket": "tpultrasonido.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679252629498:android:6dba5fa6d9fa58a1a37643",
+        "android_client_info": {
+          "package_name": "io.chirp.sdkdemoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679252629498-hijbondh977edeiohjdpmoeojegrgtmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlRKYiuV-zO1snWo0hYnX5elNr8YCDTyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679252629498-hijbondh977edeiohjdpmoeojegrgtmn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

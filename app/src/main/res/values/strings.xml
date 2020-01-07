@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ChirpSDKDemoApp</string>
+    <string name="ultrasonido_login">Ultrasonido Login</string>
+    <string name="login_con_google">Login con GOOGLE</string>
+    <string name="logout">Logout</string>
+    <string name="identificador_de_publicidad">Identificador de publicidad</string>
+    <string name="estado">Estado</string>
+    <string name="detenido">Detenido</string>
+    <string name="ultimo_codigo_recibido">Ultimo codigo recibido</string>
 </resources>
