@@ -1,7 +1,5 @@
 package io.chirp.sdkdemoapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
     static final int GOOGLE_SIGN_IN = 123;
     FirebaseAuth mAuth;
-    Button btn_login, btn_logout;
+    Button btn_login, btn_logout, btn_app;
     TextView text;
     ImageView image;
     ProgressBar progressBar;
@@ -41,14 +41,14 @@ public class LoginActivity extends AppCompatActivity {
 
         btn_login = findViewById(R.id.login);
         btn_logout = findViewById(R.id.logout);
+        btn_app = findViewById(R.id.app);
         text = findViewById(R.id.text);
         image = findViewById(R.id.image);
         progressBar = findViewById(R.id.progress_circular);
 
         mAuth = FirebaseAuth.getInstance();
 
-        GoogleSignInOptions gso = new GoogleSignInOptions
-                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
         btn_login.setOnClickListener(v -> SignInGoogle());
         btn_logout.setOnClickListener(v -> Logout());
+        btn_app.setOnClickListener(v -> openMainactivity());
 
         if (mAuth.getCurrentUser() != null) {
             FirebaseUser user = mAuth.getCurrentUser();
@@ -64,10 +65,16 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void openMainactivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     public void SignInGoogle() {
         progressBar.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
+
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
@@ -123,18 +130,23 @@ public class LoginActivity extends AppCompatActivity {
 
             btn_logout.setVisibility(View.VISIBLE);
             btn_login.setVisibility(View.INVISIBLE);
+            btn_app.setVisibility(View.VISIBLE);
         } else {
-            text.setText("Firebase Login \n");
+            text.setText("Ultrasonido Login \n");
             Picasso.get().load(R.drawable.ic_firebase_logo).into(image);
             btn_logout.setVisibility(View.INVISIBLE);
             btn_login.setVisibility(View.VISIBLE);
+            btn_app.setVisibility(View.INVISIBLE);
         }
     }
 
+
+
+
+
     private void Logout() {
         FirebaseAuth.getInstance().signOut();
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                task -> updateUI(null));
+      mGoogleSignInClient.signOut().addOnCompleteListener(this,
+               task -> updateUI(null));
     }
 }
-
