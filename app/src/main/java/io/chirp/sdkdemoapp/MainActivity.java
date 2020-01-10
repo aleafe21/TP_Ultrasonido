@@ -4,14 +4,19 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import io.chirp.chirpsdk.ChirpSDK;
 import io.chirp.chirpsdk.interfaces.ChirpEventListener;
@@ -21,6 +26,7 @@ import io.chirp.chirpsdk.models.ChirpError;
 
 public class MainActivity extends AppCompatActivity {
 
+    private DatabaseReference Datos;
     private ChirpSDK chirpSdk;
     private Context context;
 
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Datos = FirebaseDatabase.getInstance().getReference("Datos");
         parentLayout = findViewById(android.R.id.content);
         status = (TextView) findViewById(R.id.stateValue);
         lastChirp = (TextView) findViewById(R.id.lastChirp);
@@ -263,6 +270,21 @@ public class MainActivity extends AppCompatActivity {
             hexChars[j * 2 + 1] = hexArray[v & 0x0F];
         }
         return new String(hexChars);
+    }
+
+    public void registrarDatos(){
+        String mensaje=lastChirp.getText().toString();
+
+        if (!TextUtils.isEmpty(mensaje)){
+            String id = Datos.push().getKey();
+            Datos codigo =new Datos(id, mensaje);
+            Datos.child("Codigos").child(id).setValue(codigo);
+
+            Toast.makeText(this, "Codgido Registrado", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(this, "Codgido sin Registrar", Toast.LENGTH_LONG).show();
+
+        }
     }
 
 }
